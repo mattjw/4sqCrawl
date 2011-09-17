@@ -42,10 +42,5 @@ class MainTest(TestCase):
         print "#"*40
         
         
-        response = client.post( '/crawl/create', { 'leader' : 'umanasd3' } )
-        print "#"*40
-        print response.content
-        print "#"*40
-        print response.status_code
-        print "#"*40
+
         
