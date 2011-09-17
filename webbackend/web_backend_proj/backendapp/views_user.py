@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.template import Template, Context, RequestContext
 from django.template.loader import get_template
+from django.core.exceptions import ObjectDoesNotExist
 
 from django import forms
 import models 
@@ -15,7 +16,7 @@ def user_id( request, user_id ):
     """
     try:
         obj = models.User.objects.get( id=user_id )
-    except DoesNotExist:
+    except ObjectDoesNotExist:
         return HttpResponseBadRequest( "ID not found" )
     json_str = obj.to_json()
     return HttpResponse( json_str )
