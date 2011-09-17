@@ -1,6 +1,18 @@
 from django.conf.urls.defaults import patterns, include, url
 
 urlpatterns = patterns('',
+    url( r'^crawl/create/', include( 'backendapp.urls' ) )
+    # POST request
+    #
+    # params:
+    # name              name for the crawl
+    # description       description of the crawl
+    # startdatetime     start date of the time as seconds after epoch
+    # duration          duration of the crawl in minutes
+    # leader            user_id of the crawl leader
+    # venues            list of foursq_ids of venues on the crawl
+    #
+    # adds a crawl to the system. Returns the crawl_id
     url( r'^/crawl/(\d+)/', include( 'backendapp.urls' ) )
     # GET request
     #
