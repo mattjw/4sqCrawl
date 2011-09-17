@@ -13,8 +13,12 @@ def user_id( request, user_id ):
     """
     r'^/user/(\d+)/'
     """
-    
-    return HttpResponse("user_id"+user_id)
+    try:
+        obj = models.User.objects.get( id=user_id )
+    except DoesNotExist:
+        return HttpResponseBadRequest( "ID not found" )
+    json_str = obj.to_json()
+    return HttpResponse( json_str )
 
 def user_list( request ):
     """
