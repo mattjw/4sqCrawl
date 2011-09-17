@@ -8,12 +8,12 @@ from models import *
 
 def crawl_create( request ):
 
-    name = request.POST.get( 'name' )
-    description = request.POST.get( 'description' )
-    startdatetime = request.POST.get( 'startdatetime' )
-    duration = request.POST.get( 'duration' )
-    leader_id = request.POST.get( 'leader' )
-    venues_ids = request.POST.getlist( 'venues' )
+    name = request.POST.get( 'name', None )
+    description = request.POST.get( 'description', None )
+    startdatetime = request.POST.get( 'startdatetime', None )
+    duration = request.POST.get( 'duration', None )
+    leader_id = request.POST.get( 'leader', None )
+    venues_ids = request.POST.getlist( 'venues', None )
 
     leader = User.objects.get_or_create( foursq_id=leader_id )
 
@@ -49,6 +49,7 @@ def crawl_add_venue( request, crawl_id ):
     voc = VenueOnCrawl.objects.get_or_create( venue=v, crawl=c, index=i )
 
 def crawl_remove_venue( request, crawl_id ):
+    
     return HttpResponse('')
 def crawl_delete( request, crawl_id ):
     return HttpResponse('')

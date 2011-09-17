@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import patterns, include, url
 
 urlpatterns = patterns('',
-    url( r'^crawl/create/', include( 'backendapp.urls' ) ),
+    url( r'^crawl/create/', 'backendapp.views.crawl_create' ),
     # POST request
     #
     # params:
