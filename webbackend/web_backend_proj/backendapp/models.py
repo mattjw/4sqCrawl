@@ -37,7 +37,7 @@ class Visited( models.Model ):
     venue = models.ForeignKey( Venue, related_name="visited" )
     crawl = models.ForeignKey( Crawl, related_name="visited" )
     user = models.ForeignKey( User, related_name="visited" )
-
+    #visit_time = models.DateTimeField( 'visit_time' ) #~
 
 
 
