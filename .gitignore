@@ -2,3 +2,5 @@
 *.pyc
 ./webbackend/web_backend_proj/backendapp/tests.py
 ./webbackend/web_backend_proj/backend_db
+*/4sqconfig
+
