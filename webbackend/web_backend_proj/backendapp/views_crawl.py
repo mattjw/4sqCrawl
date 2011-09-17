@@ -49,9 +49,10 @@ def crawl_add_venue( request, crawl_id ):
     voc = VenueOnCrawl.objects.get_or_create( venue=v, crawl=c, index=i )
 
 def crawl_remove_venue( request, crawl_id ):
-
+    return HttpResponse('')
 def crawl_delete( request, crawl_id ):
-
+    return HttpResponse('')
 def crawl_add_user( request, crawl_id ):
-
+    return HttpResponse('')
 def crawl_remove_user( request, crawl_id ): 
+    return HttpResponse('')
