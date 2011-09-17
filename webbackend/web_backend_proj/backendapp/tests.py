@@ -13,28 +13,28 @@ class MainTest(TestCase):
   def test( self ):
         client = Client()
         
-        response = client.post( '/user/create/', {'foursq_id':"umanasd3"} )
+        response = client.post( '/api/user/create/', {'foursq_id':"umanasd3"} )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
         
-        response = client.post( '/user/create/', {'foursq_id':"umanasd3ddswe"} )
+        response = client.post( '/api/user/create/', {'foursq_id':"umanasd3ddswe"} )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
         
-        response = client.get( '/user/list/', {} )
+        response = client.get( '/api/user/list/', {} )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
         
-        response = client.get( '/user/1/', {} )
+        response = client.get( '/api/user/1/', {} )
         print "#"*40
         print response.content
         print "#"*40
@@ -42,7 +42,7 @@ class MainTest(TestCase):
         print "#"*40
         
         
-        response = client.post( '/crawl/create/', { 'name' : 'a name',
+        response = client.post( '/api/crawl/create/', { 'name' : 'a name',
                         'description' : 'a description',
                         'startdatetime' : '1316277933',
                         'duration' : '30', 
@@ -54,7 +54,7 @@ class MainTest(TestCase):
         print response.status_code
         print "#"*40
 
-        response = client.post( '/crawl/create/', { 'name' : 'another name',
+        response = client.post( '/api/crawl/create/', { 'name' : 'another name',
                         'description' : 'another description',
                         'startdatetime' : '1316277933',
                         'duration' : '30', 
@@ -66,21 +66,21 @@ class MainTest(TestCase):
         print response.status_code
         print "#"*40
 
-        response = client.get( '/crawl/1/', {} )
+        response = client.get( '/api/crawl/1/', {} )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
 
-        response = client.get( '/crawl/list/', {} )
+        response = client.get( '/api/crawl/list/', {} )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
 
-        response = client.post( '/crawl/1/add_venue/', { 'venue_id' : 'somevenueid', 
+        response = client.post( '/api/crawl/1/add_venue/', { 'venue_id' : 'somevenueid', 
                                                         'index' : '0' } )
         print "#"*40
         print response.content
@@ -88,7 +88,7 @@ class MainTest(TestCase):
         print response.status_code
         print "#"*40
 
-        response = client.post( '/crawl/1/add_venue/', { 'venue_id' : 'someothervenueid', 
+        response = client.post( '/api/crawl/1/add_venue/', { 'venue_id' : 'someothervenueid', 
                                                         'index' : '0' } )
         print "#"*40
         print response.content
@@ -96,42 +96,42 @@ class MainTest(TestCase):
         print response.status_code
         print "#"*40
 
-        response = client.get( '/crawl/1/', {} )
+        response = client.get( '/api/crawl/1/', {} )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
 
-        response = client.post( '/crawl/1/remove_venue/', { 'venue_id' : 'someothervenueid' } )
+        response = client.post( '/api/crawl/1/remove_venue/', { 'venue_id' : 'someothervenueid' } )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
 
-        response = client.get( '/crawl/1/', {} )
+        response = client.get( '/api/crawl/1/', {} )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
 
-        response = client.post( '/crawl/1/add_user/', { 'user_id' : 'umanasd3' } )
+        response = client.post( '/api/crawl/1/add_user/', { 'user_id' : 'umanasd3' } )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
 
-        response = client.post( '/crawl/2/add_user/', { 'user_id' : 'umanasd3' } )
+        response = client.post( '/api/crawl/2/add_user/', { 'user_id' : 'umanasd3' } )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
 
-        response = client.get( '/crawl/1/', {} )
+        response = client.get( '/api/crawl/1/', {} )
         print "#"*40
         print response.content
         print "#"*40
@@ -140,49 +140,49 @@ class MainTest(TestCase):
 
 
         print 'USER CRAWLS'
-        response = client.get( '/user/1/crawls/', {} ) 
+        response = client.get( '/api/user/1/crawls/', {} ) 
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
 
-        response = client.post( '/crawl/1/remove_user/', { 'user_id' : 'umanasd3' } )
+        response = client.post( '/api/crawl/1/remove_user/', { 'user_id' : 'umanasd3' } )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
 
-        response = client.get( '/crawl/1/', {}  )
+        response = client.get( '/api/crawl/1/', {}  )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
 
-        response = client.get( '/user/1/crawls/', {} ) 
+        response = client.get( '/api/user/1/crawls/', {} ) 
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
 
-        response = client.get( '/crawl/list/', {} )
+        response = client.get( '/api/crawl/list/', {} )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
 
-        response = client.post( '/crawl/1/delete/', { 'user_id' : 'umanasd3' } )
+        response = client.post( '/api/crawl/1/delete/', { 'user_id' : 'umanasd3' } )
         print "#"*40
         print response.content
         print "#"*40
         print response.status_code
         print "#"*40
 
-        response = client.get( '/crawl/list/', {} )
+        response = client.get( '/api/crawl/list/', {} )
         print "#"*40
         print response.content
         print "#"*40
