@@ -50,7 +50,15 @@ def crawl_add_venue( request, crawl_id ):
 
 def crawl_remove_venue( request, crawl_id ):
     
-    return HttpResponse('')
+    c = Crawl.objects.get( id=crawl_id )
+
+    venue_id = request.POST.get( 'venue_id', None )
+
+    v = Venue.objects.get( foursq_id=venue_id )
+    c.venues.delete( v )
+
+    
+    
 def crawl_delete( request, crawl_id ):
     return HttpResponse('')
 def crawl_add_user( request, crawl_id ):
