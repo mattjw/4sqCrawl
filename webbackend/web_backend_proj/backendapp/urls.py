@@ -57,15 +57,15 @@ urlpatterns = patterns('',
     # GET request
     #
     # returns info for the user
-    url( r'^user/create$', 'backendapp.views.user_create' ),
+    url( r'^user/create/$', 'backendapp.views.user_create' ),
     # POST request
     #
     # params:
     # foursq_id     the foursq_id of the user
     #
     # create a user
-    url( r'^user/(\d+)/crawls$', 'backendapp.views.user_id_crawls' ),
-    url( r'^user/list$', 'backendapp.views.user_list' ),
+    url( r'^user/(\d+)/crawls/$', 'backendapp.views.user_id_crawls' ),
+    url( r'^user/list/$', 'backendapp.views.user_list' ),
     # GET request
     #
     # returns the list of crawls the user has been on
