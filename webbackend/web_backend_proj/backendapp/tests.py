@@ -13,7 +13,14 @@ class MainTest(TestCase):
   def test( self ):
         client = Client()
         
-        response = client.post( '/user/create', {'foursq_id':3} )
+        response = client.post( '/user/create', {'foursq_id':"umanasd3"} )
+        print "#"*40
+        print response.content
+        print "#"*40
+        print response.status_code
+        print "#"*40
+        
+        response = client.post( '/user/create', {'foursq_id':"umanasd3ddswe"} )
         print "#"*40
         print response.content
         print "#"*40
@@ -26,3 +33,15 @@ class MainTest(TestCase):
         print "#"*40
         print response.status_code
         print "#"*40
+        
+        response = client.get( '/user/1/', {} )
+        print "#"*40
+        print response.content
+        print "#"*40
+        print response.status_code
+        print "#"*40
+        
+        
+        
+        
+        

@@ -14,15 +14,15 @@ def user_id( request, user_id ):
     r'^/user/(\d+)/'
     """
     
-    return HttpResponse("user_id"+args)
+    return HttpResponse("user_id"+user_id)
 
 def user_list( request ):
     """
     r'^/user/list/'
     """
-    user_objs = models.Users.objects.all()
-    str = ''.join( [obj.foursq_id for obj in user_objs] )
-    return 
+    user_objs = models.User.objects.all()
+    str = ''.join( ["%s=(%s) | " % (obj.id,obj.foursq_id) for obj in user_objs] )
+    return HttpResponse("user_list -- "+str)
 
 def user_create( request ):
     """
