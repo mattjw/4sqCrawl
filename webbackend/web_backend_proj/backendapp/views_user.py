@@ -18,7 +18,7 @@ def user_id( request, user_id ):
     try:
         obj = models.User.objects.get( id=user_id )
     except ObjectDoesNotExist:
-        return HttpResponseBadRequest( "ID not found" )
+        return HttpResponseBadRequest( "User not found" )
     json_str = obj.to_json()
     return HttpResponse( json_str )
 
@@ -57,7 +57,11 @@ def user_id_crawls( request, user_id ):
     """
     r'^/user/(\d+)/crawls'
     """
-    return HttpResponse("user_id_crawls" )
+    try:
+        obj = models.User.objects.get( id=user_id )
+    except ObjectDoesNotExist:
+        return HttpResponseBadRequest( "User not found" )
+    return HttpResponse( json.dumps( [ c.to_dict( ) for c in obj.on_crawls.all( ) ] ) )
 
 
 

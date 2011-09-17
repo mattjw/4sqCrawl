@@ -124,7 +124,23 @@ class MainTest(TestCase):
         print response.status_code
         print "#"*40
 
+        response = client.post( '/crawl/2/add_user/', { 'user_id' : 'umanasd3' } )
+        print "#"*40
+        print response.content
+        print "#"*40
+        print response.status_code
+        print "#"*40
+
         response = client.get( '/crawl/1/', {} )
+        print "#"*40
+        print response.content
+        print "#"*40
+        print response.status_code
+        print "#"*40
+
+
+        print 'USER CRAWLS'
+        response = client.get( '/user/1/crawls/', {} ) 
         print "#"*40
         print response.content
         print "#"*40
@@ -139,6 +155,13 @@ class MainTest(TestCase):
         print "#"*40
 
         response = client.get( '/crawl/1/', {}  )
+        print "#"*40
+        print response.content
+        print "#"*40
+        print response.status_code
+        print "#"*40
+
+        response = client.get( '/user/1/crawls/', {} ) 
         print "#"*40
         print response.content
         print "#"*40

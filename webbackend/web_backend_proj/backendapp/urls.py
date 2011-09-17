@@ -72,7 +72,7 @@ urlpatterns = patterns('',
     # GET request
     #
     # returns the list of users
-    url( r'^checkin/$', include( 'backendapp.urls' ) )
+    url( r'^checkin/create/$', 'backendapp.views.checkin_create' )
     # POST request
     #
     # params:
