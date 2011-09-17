@@ -22,11 +22,11 @@ def user_list( request ):
     """
     user_objs = models.Users.objects.all()
     str = ''.join( [obj.foursq_id for obj in user_objs] )
-    return HttpResponse("user_list -- "+str)
+    return 
 
 def user_create( request ):
     """
-    r'^/user/create'
+    r'^/user/create' 
     """
     #
     # Extract and validate
