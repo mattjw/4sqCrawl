@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     # venues            list of foursq_ids of venues on the crawl
     #
     # adds a crawl to the system. Returns the crawl_id
-    url( r'^/crawl/(\d+)/', include( 'backendapp.urls' ) ),
+    url( r'^crawl/(\d+)/', include( 'backendapp.urls' ) ),
     # GET request
     #
     # returns info for the crawl
@@ -65,6 +65,7 @@ urlpatterns = patterns('',
     #
     # create a user
     url( r'^user/(\d+)/crawls$', 'backendapp.views.user_id_crawls' ),
+    url( r'^user/list$', 'backendapp.views.user_list' ),
     # GET request
     #
     # returns the list of crawls the user has been on
