@@ -9,13 +9,20 @@ class User( models.Model ):
     foursq_id = models.CharField( max_length=100 )
 
     def to_json( self ):
-        return json.dumps( { 'user' : { 'id': self.id, 'foursq_id' : self.foursq_id } } )
+        return json.dumps( self.to_dict( ) )
+
+    def to_dict( self ):
+        return { 'user' : { 'id': self.id, 'foursq_id' : self.foursq_id } }
+    
 
 class Venue( models.Model ):
     foursq_id = models.CharField( max_length=100 )
 
     def to_json( self ):
-        return json.dumps( { 'venue' : { 'id' : self.id, 'foursq_id' : self.foursq_id } } ) 
+        return json.dumps( self.to_dict( ) ) 
+    
+    def to_dict( self ):
+        return { 'venue' : { 'id' : self.id, 'foursq_id' : self.foursq_id } }
 
 class Crawl( models.Model ):
     duration = models.IntegerField()
@@ -33,12 +40,15 @@ class Crawl( models.Model ):
                 related_name="on_crawls")
 
     def to_json( self ):
-        return json.dumps( { 'id' : self.id, 'name' : self.name, 'description' : self.description,
-                            'startdatetime' : self.time.mktime( self.startdatetime.timetuple( ) ),
-                            'leader' : self.leader.to_json( ), 'duration' : self.duration, 
-                            'crawlers' : [ u.to_json( ) for u in self.crawlers ],
-                            'venues' : [ v.to_json( ) for v in self.venues ]
-        } )
+        return json.dumps( self.to_dict( ) )
+    
+    def to_dict( self ):
+        return { 'crawl' : { 'id' : self.id, 'name' : self.name, 'description' : self.description,
+                'startdatetime' : time.mktime( self.startdatetime.timetuple( ) ),
+                'leader' : self.leader.to_dict( ), 'duration' : self.duration, 
+                'crawlers' : [ u.to_dict( ) for u in self.crawlers.all() ],
+                'venues' : [ v.to_dict( ) for v in self.venues.all() ]
+        } }
 
 class VenueOnCrawl( models.Model ):
     index = models.IntegerField()

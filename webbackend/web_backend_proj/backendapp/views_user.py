@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from django import forms
 import models 
+import json
 
 from datetime import datetime 
 
@@ -25,9 +26,7 @@ def user_list( request ):
     """
     r'^/user/list/'
     """
-    user_objs = models.User.objects.all()
-    str = ''.join( ["%s=(%s) | " % (obj.id,obj.foursq_id) for obj in user_objs] )
-    return HttpResponse("user_list -- "+str)
+    return HttpResponse( json.dumps( [ u.to_dict( ) for u in models.User.objects.all( ) ] ) )
 
 def user_create( request ):
     """
@@ -43,7 +42,7 @@ def user_create( request ):
     req_params = ['foursq_id',]
     for req_param in req_params:
         if not req_param in params:
-            return HttpResponseBadRequest( "Missing require field: " + req_param )
+            return HttpResponseBadRequest( "Missing required field: " + req_param )
     
     #
     # Process
