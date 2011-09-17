@@ -6,6 +6,25 @@ from django.shortcuts import render_to_response
 
 from models import *
 
+def crawl_create( request ):
+
+    name = request.POST.get( 'name' )
+    description = request.POST.get( 'description' )
+    startdatetime = request.POST.get( 'startdatetime' )
+    duration = request.POST.get( 'duration' )
+    leader_id = request.POST.get( 'leader' )
+    venues_ids = request.POST.getlist( 'venues' )
+
+    leader = User.objects.get_or_create( foursq_id=leader_id )
+
+    c = Crawl( name=name, description=description, startdatetime=startdatetime,
+            duration=duration, leader=leader)
+    for venue_id in venues_ids:
+        v = Venue.objects.get_or_create( foursq_id=venue_id )
+        c.venues.append( v )
+    c.save()
+
+
 def crawl_info( request, crawl_id ):
     c = Crawl.objects.get( id=crawl_id )
     return HttpResponse( c.to_json( ) ) 

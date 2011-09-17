@@ -9,7 +9,7 @@ class User( models.Model ):
     foursq_id = models.CharField( max_length=100 )
 
     def to_json( self ):
-        return json.dumps( { 'user' : { 'id': self.id, 'foursq_id' : foursq_id } )
+        return json.dumps( { 'user' : { 'id': self.id, 'foursq_id' : foursq_id } } )
 
 class Venue( models.Model ):
     foursq_id = models.CharField( max_length=100 )
