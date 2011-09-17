@@ -16,6 +16,14 @@ def user_id( request, user_id ):
     
     return HttpResponse("user_id"+args)
 
+def user_list( request ):
+    """
+    r'^/user/list/'
+    """
+    user_objs = models.Users.objects.all()
+    str = ''.join( [obj.foursq_id for obj in user_objs] )
+    return HttpResponse("user_list -- "+str)
+
 def user_create( request ):
     """
     r'^/user/create'
@@ -25,16 +33,16 @@ def user_create( request ):
     if request.method != 'POST':
         return HttpResponseBadRequest( "POST calls only" )
     
-    post_params = request.POST
+    params = request.POST
     
     req_params = ['foursq_id',]
     for req_param in req_params:
-        if not req_param in post_params:
+        if not req_param in params:
             return HttpResponseBadRequest( "Missing require field: " + req_param )
     
     #
     # Process
-    foursq_id = get_params['foursq_id']
+    foursq_id = params['foursq_id']
     
     usr = models.User(foursq_id=foursq_id)
     usr.save()
