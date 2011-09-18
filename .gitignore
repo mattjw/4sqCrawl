@@ -1,20 +1,8 @@
 *.DS_Store 
 *.pyc
-./webbackend/web_backend_proj/backendapp/tests.py
-./webbackend/web_backend_proj/backend_db
-./webbackend/web_backend_proj/credentials.py
-
-
+webbackend/web_backend_proj/backendapp/tests.py
+webbackend/web_backend_proj/backend_db
+webbackend/web_backend_proj/credentials.py
+webfrontend/.DS_Store
 .DS_Store
 
-.DS_Store
-
-webfrontend/.DS_Store
-
-.DS_Store
-
-webfrontend/.DS_Store
-
-webfrontend/.DS_Store
-
-webfrontend/.DS_Store
