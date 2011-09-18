@@ -138,52 +138,48 @@
     };
     
     
-    
-    
-  $(document).bind( "pagecreate", function( e, data ) {  
-   // $(document).ready(function() { 
-   
+ $('#allcrawls').live('pagecreate',function(event)
+ {
  
+    function showCrawls() 
+    { 
         
-        function listCrawls() 
-        { 
+        var list_url='https://fourcrawl.nomovingparts.net/api/crawl/list/'; 
+                
+        listhtml; 
 
-            var list_url='https://fourcrawl.nomovingparts.net/api/crawl/list/'; 
-            
-            
-            listhtml = ''; 
-            
-            data = [{"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 1, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 2, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 3, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "Crawl Name", "startdatetime": 1300000000.0, "duration": 30, "id": 4, "venues": [{"venue": {"id": 1, "foursq_id": "['99venueid10', '99venueid11']"}}], "description": "Crawl description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "Crawl Name", "startdatetime": 1300000000.0, "duration": 30, "id": 5, "venues": [{"venue": {"id": 1, "foursq_id": "['99venueid10', '99venueid11']"}}], "description": "Crawl description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 6, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 7, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 8, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 9, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 10, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 11, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 12, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 13, "venues": [], "description": "some_description"}}];
+        data = [{"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 1, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 2, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 3, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "Crawl Name", "startdatetime": 1300000000.0, "duration": 30, "id": 4, "venues": [{"venue": {"id": 1, "foursq_id": "['99venueid10', '99venueid11']"}}], "description": "Crawl description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "Crawl Name", "startdatetime": 1300000000.0, "duration": 30, "id": 5, "venues": [{"venue": {"id": 1, "foursq_id": "['99venueid10', '99venueid11']"}}], "description": "Crawl description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 6, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 7, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 8, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 9, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 10, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 11, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 12, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 13, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 14, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 15, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 16, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 17, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 18, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 19, "venues": [{"venue": {"id": 2, "foursq_id": "4b537c52f964a520589f27e3"}}, {"venue": {"id": 3, "foursq_id": "4b522afaf964a5200b6d27e3"}}, {"venue": {"id": 4, "foursq_id": "4b50deb3f964a5202d3627e3"}}], "description": "some_description"}}];
 
+
+        /*
+        $.getJSON(list_url, {}, function(data) { 
 
             for(i in data) { 
-                    listhtml += '' + data[i]['crawl'][] + ''; 
-                }
-
-/*
-            $.getJSON(list_url, {}, function(data) { 
-
-                for(i in data) { 
-                    listhtml += '' + data[i]['name'] + ''; 
-                } 
-            }, 'json'); 
-            */
+                listhtml += '' + data[i]['name'] + ''; 
+            } 
+        }, 'json'); 
+        */
 
 
-            listhtml += ''; 
+        for(i in data) 
+        { 
+            listhtml += '' + data[i]['crawl']['name'] + ''; 
+        }
 
 
-            alert(listhtml);
-            $("#crawllist").html(listhtml); 
-            
-        } 
+        alert($("#crawllist").html);
+        $("#crawllist").html("listhtml");
         
         
-        $(".crawllistitem").click(function() { 
+    } 
 
-            showCrawl($(this).attr('crawlid')); 
+ 
+ 
+    $(".crawllistitem").click(function() { 
 
-        }); 
+        showCrawl($(this).attr('crawlid')); 
+
+    });
 
         
         function showCrawl(crawl_id) { 
@@ -204,7 +200,7 @@
         })} 
 
     
-        listCrawls(); 
+        showCrawls(); 
         
         
     });
@@ -216,8 +212,7 @@
     
     
     
-    
-    
+  
     
     
     function showVenue( urlObj, options )
@@ -302,6 +297,7 @@
     
     // Listen for any attempts to call changepage.
     $(document).bind( "pagebeforechange", function( e, data ) {
+       
             // We only want to handle changepage calls where the caller is
             // asking us to load a page by URL.
             if ( typeof data.toPage === "string" ) {
@@ -310,17 +306,19 @@
                     // category.
                     var u = $.mobile.path.parseUrl( data.toPage ),
                             re = /^#showcrawl/;
+                            
                     if ( u.hash.search(re) !== -1 ) {
                             // We're being asked to display the items for a specific category.
                             // Call our internal method that builds the content for the category
                             // on the fly based on our in-memory category data structure.
-                            
-                            showVenue( u, data.options );
+                           
+                            showVenue( );
 
                             // Make sure to tell changepage we've handled this call so it doesn't
                             // have to do anything.
                             e.preventDefault();
                     }
+
             }
     });
     
@@ -343,12 +341,9 @@
                 
                     <h2>All <span style="color:#008dcb">four<span  style="color:#f89406" class="italics">crawl</span></span> crawls</h2>
 
-                    <div id="crawllist">
-
-                        <a href="#showcrawl?venue=example" data-role="button" data-theme="e" data-icon="arrow-r" data-inline="true" 
-                           class="crawllistutem ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-e">
-                            <span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">(example) The Swan and Hen</span>
-                                <span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></span></a>
+                    <div data-role="crawllist">
+                        
+                        ###
 
                     </div>
                     
