@@ -14,11 +14,25 @@
 
 
     <!-- Le styles -->
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-6238402-3']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet">
     <link href="{{STATIC_URL}}css/fourcrawl.css" rel="stylesheet">
     <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.6.4.min.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}js/jquery.ba-bbq.min.js"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
         
 
     <style type="text/css">
@@ -30,37 +44,20 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
-    function listCrawls() {
         var list_url='https://fourcrawl.nomovingparts.net/api/crawl/list/';
         listHtml = '<ul>';
-        $.getJSON(list_url, {}, function(data) {
+        $.get(list_url, {}, function(data) {
             for(i in data) {
-                listHtml += '<div class=\"crawlslist\" id=' + i + '>' + data[i]['name'] + '</div>'
+              listHtml += '<div class=\"crawlslist\" id=' + i + '><p>' + data[i]['name'] + '</p></div>'
             }  
-        }, 'json');
-        listHtml += '</ul>';
-        $("#listofcrawls").html(listHtml);
-    }
+            listHtml += '</ul>';
+            $("#listofcrawls").html(listHtml);
+        });
 
     $(".crawlslist").click(function(){
         showCrawl($(this).attr('id'));
     });
 
-
-    function showCrawl(crawl_id) {
-        var list_url='https://fourcrawl.nomovingparts.net/api/crawl/' + crawl_id + '/list/';
-        crawlHtml = ''
-        $.getJSON(list_url, {}, function(data) {
-            crawlHtml += '<div id=\"crawldata\">
-                          <p class=\"name\">' + data['name'] + '</p>
-                          <p class=\"description\">' + data['description'] + '</p>
-                          <p class=\"start date & time\">' + data['startdatetime'] + '</p>
-                          <p class=\"duration\">' + data['duration'] + '</p>
-                          <p class=\"venues\">' + data['venues'] + '</p>
-                          </div>'
-        });
-        $("#crawlinfo").html(crawlHtml);
-    }
   });
 </script>
 
@@ -68,7 +65,7 @@
   <body>
 
     <div id="container">
-        
+        <p>Crawls:</p>
         <div class="row">
             <div class="span6 offset2">
                 <div id="listofcrawls">
