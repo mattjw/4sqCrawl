@@ -14,10 +14,10 @@
 
 
     <!-- Le styles -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/fourcrawl.css" rel="stylesheet">
-    <script type="text/javascript" src="../js/jquery-1.6.4.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.ba-bbq.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/fourcrawl.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ba-bbq.min.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
         
 	
@@ -166,7 +166,7 @@
         infowindow.close()
         infowindow = new google.maps.InfoWindow({
         maxHeight: 400,
-        content:  "<div style='background-image:url(../images/bar.png);background-repeat:no-repeat;padding:0 10px 10px 42px;'><h3>"  + venue['name'] + "</h3><span>" + venue['location']['address'] + "</span></div><button id='" + venue['id'] + "'style='display:block' class='btn success addvenue'>Add place</button>"
+        content:  "<div style='background-image:url(images/bar.png);background-repeat:no-repeat;padding:0 10px 10px 42px;'><h3>"  + venue['name'] + "</h3><span>" + venue['location']['address'] + "</span></div><button id='" + venue['id'] + "'style='display:block' class='btn success addvenue'>Add place</button>"
         });
              
         infowindow.open(marker.get('map'), marker);
@@ -336,7 +336,7 @@
             var popWidth = dim[0].split('=')[1]; //Gets the first query string value
 
             //Fade in the Popup and add close button
-            $('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"><img src="../images/close.png" class="btn_close" title="Close Window" alt="Close" /></a>');
+            $('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"><img src="images/close.png" class="btn_close" title="Close Window" alt="Close" /></a>');
 
             //Define margin for center alignment (vertical   horizontal) - we add 80px to the height/width to accomodate for the padding  and border width defined in the css
             var popMargTop = ($('#' + popID).height() + 80) / 2;
@@ -418,11 +418,7 @@
             <div class="span3"  style="padding-top:40px;">
                 
                     <a href="#" class="submitcrawl btn success">Submit your crawl</a>
-
-                    <!--
-                    <a href="createcrawl/" class="btn primary large">Sign in with foursquare</a>
-                    <input type="submit" value="Submit Crawl" class="button" onclick="submitCrawl();" /> 
-                    //-->
+                    
             </div>                   
               
 
