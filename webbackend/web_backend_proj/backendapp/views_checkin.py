@@ -1,3 +1,5 @@
+from django.views.decorators.csrf import csrf_exempt
+
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.template import Template, Context, RequestContext
 from django.template.loader import get_template
