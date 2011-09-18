@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <title>Fourcrawl</title>
+    <meta name="description" content="Fourcrawl - the foursquare pub crawl manager">
+    <meta name="author" content="">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+
+    <!-- Le styles -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/fourcrawl.css" rel="stylesheet">
+    <script type="text/javascript" src="../js/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.ba-bbq.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+        
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+    </style>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    function listCrawls() {
+        var list_url='https://fourcrawl.nomovingparts.net/api/crawl/list/';
+        listHtml = '<ul>';
+        $.getJSON(list_url, {}, function(data) {
+            for(i in data) {
+                listHtml += '<div class=\"crawlslist\" id=' + i + '>' + data[i]['name'] + '</div>'
+            }  
+        }, 'json');
+        listHtml += '</ul>';
+        $("#listofcrawls").html(listHtml);
+    }
+
+    $(".crawlslist").click(function(){
+        showCrawl($(this).attr('id'));
+    });
+
+
+    function showCrawl(crawl_id) {
+        var list_url='https://fourcrawl.nomovingparts.net/api/crawl/' + crawl_id + '/list/';
+        crawlHtml = ''
+        $.getJSON(list_url, {}, function(data) {
+            crawlHtml += '<div id=\"crawldata\">
+                          <p class=\"name\">' + data['name'] + '</p>
+                          <p class=\"description\">' + data['description'] + '</p>
+                          <p class=\"start date & time\">' + data['startdatetime'] + '</p>
+                          <p class=\"duration\">' + data['duration'] + '</p>
+                          <p class=\"venues\">' + data['venues'] + '</p>
+                          </div>'
+        });
+        $("#crawlinfo").html(crawlHtml);
+    }
+  });
+</script>
+
+  </head>
+  <body>
+
+    <div id="container">
+        
+        <div class="row">
+            <div class="span6 offset2">
+                <div id="listofcrawls">
+                </div>
+            </div>
+            <div class="span6 offset2">
+                <div id="crawlinfo">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+  </body>
+</html>
