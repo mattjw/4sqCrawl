@@ -5,7 +5,28 @@
 #map_canvas {
 position: relative;
 top:-18px;
+-webkit-box-shadow: 0px 15px 20px 10px rgba(0, 0, 0, 0.1);
+-moz-box-shadow: 0px 15px 20px 10px rgba(0, 0, 0, 0.1);
+box-shadow: 0px 15px 20px 10px rgba(0, 0, 0, 0.1); 
 }
+
+#selectedVenuesList li {
+	padding: 5px;
+	background-color:#f5f5f5;
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px; 
+}
+
+.restart {
+color:#ffffff;
+}
+
+.restart span {
+border-bottom:1px solid #f8d906;
+color:#f8d906
+}
+
 
 #fade { /*--Transparent background layer--*/
 	display: none; /*--hidden by default--*/
