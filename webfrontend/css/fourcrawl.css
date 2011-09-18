@@ -2,6 +2,11 @@
 	font-style: italic ;
 }
 
+#map_canvas {
+position: relative;
+top:-18px;
+}
+
 #fade { /*--Transparent background layer--*/
 	display: none; /*--hidden by default--*/
 	background: #000;
