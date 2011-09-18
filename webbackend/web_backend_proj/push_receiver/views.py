@@ -23,21 +23,6 @@ def push_receiver( request ):
     if request.method == 'POST':
         params = request.POST
         
-        #~~~~~~
-        # debug stuff
-        """
-        txt = str( params )
-        log_dir = "/home/voxyn/"
-        #log_dir = "/Users/matthew/Desktop/"
-        if os.path.exists( log_dir ):
-            log_path = log_dir + "4sqlog.txt"
-            fil = open( log_path, "a" )
-            fil.write( txt )
-            fil.close()
-        return HttpResponse( txt )
-        """
-        #~~~~~~
-        
         if "checkin" in params:
             checkin_jsonstr = params['checkin']
             checkin = json.loads( checkin_jsonstr )
@@ -118,65 +103,4 @@ def push_receiver( request ):
  
     return HttpResponse("No POST")
 
-
-
-
-###### old auth stuff ######    
-
-def front( request ):
-    return render_to_response( 'login.html' )
-
-def callback( request ):
-    # get the code returned from foursquare
-    code = request.GET.get('code')
-
-    # build the url to request the access_token
-    params = { 'client_id' : credentials.CLIENT_ID,
-               'client_secret' : credentials.CLIENT_SECRET,
-               'grant_type' : 'authorization_code',
-               'redirect_uri' : credentials.CALLBACK_URL,
-               'code' : code}
-    data = urllib.urlencode( params )
-    
-    #print credentials.ACCESS_TOKEN_URL
-    #print data
-    
-    req = urllib2.Request( credentials.ACCESS_TOKEN_URL, data )
-
-    # request the access_token
-    response = urllib2.urlopen( req )
-    access_token = json.loads( response.read( ) )
-    access_token = access_token['access_token']
-
-    # store the access_token for later use
-    request.session['access_token'] = access_token
-
-    # redirect the user to show we're done
-    return HttpResponseRedirect( reverse( 'oauth_done' ) )
-
-def auth( request ):
-    # build the url to request
-    params = {'client_id' : credentials.CLIENT_ID,
-            'response_type' : 'code',
-            'redirect_uri' : credentials.CALLBACK_URL }
-    data = urllib.urlencode( params )
-    # redirect the user to the url to confirm access for the app
-    return HttpResponseRedirect( '%s?%s' % ( credentials.AUTHORIZE_URL, data  ) )
-
-def done( request ):
-    # get the access_token
-    access_token = request.session.get('access_token')
-
-    # request user details from foursquare
-    params = { 'oauth_token' : access_token }
-    data = urllib.urlencode( params )
-    url = 'https://api.foursquare.com/v2/users/self'
-    full_url = url + '?' + data
-    response = urllib2.urlopen( full_url )
-    response = response.read( )
-    user = json.loads( response )['response']['user']
-    name = user['firstName']
-
-    # show the page with the user's name to show they've logged in
-    return render_to_response( 'done.html', { 'name' : name } )
 

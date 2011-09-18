@@ -1,16 +1,9 @@
-# Deployment plan:
-#     Find '#~' in this file and update lines as appropriate.
-#     Run python2.7 manage.py syncdb
-#     Check the pythonpath in .wsgi file. Should include django root and django apps.
-
-
 # Django settings for web_backend_proj project.
 
-DEBUG = True  #~
-__DJANGO_PATH = "/Users/matthew/Code/Projects/4sqCrawl/4sqCrawl/webbackend/web_backend_proj/"
+import credentials #CLIENT_ID,CLIENT_SECRET,CALLBACK_URL,...
 
-#DEBUG = True  #~
-#__DJANGO_PATH = "/home/voxyn/webapps/fourcrawl/web_backend_proj/"
+DEBUG = True  #~
+__DJANGO_PATH = credentials.django_path
 
 DATABASES = {
     'default': {
@@ -176,8 +169,6 @@ LOGGING = {
         },
     }
 }
-
-import credentials #CLIENT_ID,CLIENT_SECRET,CALLBACK_URL
 
 # EXTRA - mjw
 TEMPLATE_CONTEXT_PROCESSORS = (
