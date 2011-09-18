@@ -14,10 +14,10 @@
 
 
     <!-- Le styles -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/fourcrawl.css" rel="stylesheet">
-    <script type="text/javascript" src="../js/jquery-1.6.4.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.ba-bbq.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/fourcrawl.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ba-bbq.min.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
         
 
@@ -42,25 +42,34 @@
         $("#listofcrawls").html(listHtml);
     }
 
+
     $(".crawlslist").click(function(){
         showCrawl($(this).attr('id'));
     });
-
-
+    
+    
     function showCrawl(crawl_id) {
         var list_url='https://fourcrawl.nomovingparts.net/api/crawl/' + crawl_id + '/list/';
-        crawlHtml = ''
+        crawlHtml = '';
+        
         $.getJSON(list_url, {}, function(data) {
-            crawlHtml += '<div id=\"crawldata\">
-                          <p class=\"name\">' + data['name'] + '</p>
-                          <p class=\"description\">' + data['description'] + '</p>
-                          <p class=\"start date & time\">' + data['startdatetime'] + '</p>
-                          <p class=\"duration\">' + data['duration'] + '</p>
-                          <p class=\"venues\">' + data['venues'] + '</p>
-                          </div>'
-        });
+            crawlHtml += '<div id=\"crawldata\">'+ 
+                          '(<p class=\"name\">' + data['name'] + '</p>' +
+                          '<p class=\"description\">' + data['description'] + '</p>' +
+                          '<p class=\"start date & time\">' + data['startdatetime'] + '</p>' +
+                          '<p class=\"duration\">' + data['duration'] + '</p>' +
+                          '<p class=\"venues\">' + data['venues'] + '</p>' +
+                          '</div>'
+        
+        
+        
         $("#crawlinfo").html(crawlHtml);
-    }
+    })}
+
+
+    listCrawls();
+
+
   });
 </script>
 
