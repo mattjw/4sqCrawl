@@ -137,6 +137,89 @@
         }
     };
     
+    
+    
+    
+  $(document).bind( "pagecreate", function( e, data ) {  
+   // $(document).ready(function() { 
+   
+ 
+        
+        function listCrawls() 
+        { 
+
+            var list_url='https://fourcrawl.nomovingparts.net/api/crawl/list/'; 
+            
+            
+            listhtml = ''; 
+            
+            data = [{"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 1, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 2, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 3, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "Crawl Name", "startdatetime": 1300000000.0, "duration": 30, "id": 4, "venues": [{"venue": {"id": 1, "foursq_id": "['99venueid10', '99venueid11']"}}], "description": "Crawl description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "Crawl Name", "startdatetime": 1300000000.0, "duration": 30, "id": 5, "venues": [{"venue": {"id": 1, "foursq_id": "['99venueid10', '99venueid11']"}}], "description": "Crawl description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 6, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 7, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 8, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 9, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 10, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 11, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 12, "venues": [], "description": "some_description"}}, {"crawl": {"leader": {"user": {"id": 1, "foursq_id": "790204"}}, "crawlers": [], "name": "some_name", "startdatetime": 316371508.0, "duration": 40, "id": 13, "venues": [], "description": "some_description"}}];
+
+
+            for(i in data) { 
+                    listhtml += '' + data[i]['crawl'][] + ''; 
+                }
+
+/*
+            $.getJSON(list_url, {}, function(data) { 
+
+                for(i in data) { 
+                    listhtml += '' + data[i]['name'] + ''; 
+                } 
+            }, 'json'); 
+            */
+
+
+            listhtml += ''; 
+
+
+            alert(listhtml);
+            $("#crawllist").html(listhtml); 
+            
+        } 
+        
+        
+        $(".crawllistitem").click(function() { 
+
+            showCrawl($(this).attr('crawlid')); 
+
+        }); 
+
+        
+        function showCrawl(crawl_id) { 
+                var list_url='https://fourcrawl.nomovingparts.net/api/crawl/' + crawl_id + '/list/'; 
+                crawlHtml = ''; 
+
+                $.getJSON(list_url, {}, function(data) { 
+
+                crawlHtml += '\
+                ' + data['description'] + '\
+                ' + data['startdatetime'] + '\
+                ' + data['duration'] + '\
+                ' + data['venues']; 
+
+                $("#crawlinfo").html(crawlHtml); 
+
+                $("#crawlname").html(data['name']); 
+        })} 
+
+    
+        listCrawls(); 
+        
+        
+    });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     function showVenue( urlObj, options )
     {
             var categoryName = urlObj.hash.replace( /.*venue=/, "" ),
@@ -165,16 +248,14 @@
                     // Get the content area element for the page.
                     $content = $page.find( ":jqmData(role=content)" )
                     
-                    alert(venue.name);
                     
                     // Find the h1 element in our header and inject the name of
                     // the category into it.
                     $content.find( "h1" ).html( venue.name );
                     
+                  
+                    $mainbody = $content.find( "div" );
                     
-
-
-                    $mainbody = $content.find(":jqmData(id=crawlinfo")
                     
                     // The markup we are going to inject into the content
                     // area of the page.
@@ -187,6 +268,7 @@
                     numItems = cItems.length;
 
                     markup += "</ul>";
+
 
                     // Inject the category items markup into the content element.
                     $mainbody.html( markup );
@@ -284,28 +366,31 @@
       
 
     <div data-role="page" id="showcrawl" >
+        
 	<div data-role="header">
 		<h1>fourcrawl</h1>
 	</div><!-- /header -->
 
 	<div data-role="content">
             
-		<h1 id="crawlname">The Swan and Hen</h1>
+		<h1 id="crawlname">#</h1>
                 	
-                <div id="crawlinfo" style="padding-left: 40px; background-image: url(images/bar_on.png); background-repeat: no-repeat;">
+                <div data-role="crawlinfo" style="padding-left: 40px; background-image: url(images/bar_on.png); background-repeat: no-repeat;">
 
-                    <p>description, start date, duration, venues</p>
+                    #
                  
                 </div>
 		
                 <p><a href="#one" data-direction="reverse" data-icon="home" data-role="button" data-theme="b">Back to all crawls</a></p>	
 		
 	</div><!-- /content -->
-	
+
+        
 	<div data-role="footer"  data-theme="d">
 		<h4><span style="color:#008dcb">four<span  style="color:#f89406" class="italics">crawl</span></span> - mmmm pubs...</h4>
 	</div><!-- /footer -->
-</div><!-- /page two -->  
+    
+    </div><!-- /page two -->  
       
       
       
