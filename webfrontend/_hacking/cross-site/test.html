@@ -1,0 +1,28 @@
+<html>
+<head>
+  <script type="text/javascript" url="foursquare-js-api-0.1.5.js">
+  </script>
+  <script type="text/javascript">
+
+window.onload = function()
+{
+  var client = new FourSquareClient( "VFS1NOYWSKC3THKFSP5VNFE1CLLED5CU0LMFUYWKCTB3IZBO", "NQ2AZBJIRIUZOBI5PET33RJHWQOIL10SBSERTAQO2C5ZGHFU", "?" );
+  document.write( "testaaa111" );
+  client.venuesClient.venues({
+         onSuccess: function(response)
+         {
+              document.write( response );
+         },
+         onFailure: function(response)
+         {
+              document.write( "hey hey" );
+         }
+  }, "5404" );
+}
+
+  </script>
+</head>
+<body>
+  test
+</body>
+</html>
