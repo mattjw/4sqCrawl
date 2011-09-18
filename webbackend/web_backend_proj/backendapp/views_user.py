@@ -49,10 +49,13 @@ def user_create( request ):
     # Process
     foursq_id = params['foursq_id']
     
-    usr = models.User(foursq_id=foursq_id)
-    usr.save()
-    
-    return HttpResponse("user_create" )
+    num_preexisting = models.User.objects.filter( foursq_id=foursq_id ).count()
+    if num_preexisting == 0:
+        usr = models.User(foursq_id=foursq_id)
+        usr.save()    
+        return HttpResponse("user_create" )
+    else:
+        return HttpResponse("user_create:: duplicate insertion ignored" )
 
 def user_id_crawls( request, user_id ):
     """

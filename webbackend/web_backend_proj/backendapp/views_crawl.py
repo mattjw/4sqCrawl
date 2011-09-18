@@ -26,7 +26,7 @@ def crawl_create( request ):
     description = params.get( 'description' )
     startdatetime = params.get( 'startdatetime' )
     startdatetime = datetime.datetime.fromtimestamp(float(startdatetime))
-    duration = params.get( 'duration' )
+    duration = int( params.get( 'duration' ) )   # assumed to be minutes
     leader_id = params.get( 'leader' )
     venues_ids = params.getlist( 'venues' )
 
@@ -34,14 +34,20 @@ def crawl_create( request ):
         leader = models.User.objects.get( foursq_id=leader_id )
     except ObjectDoesNotExist:
         return HttpResponseBadRequest( "User not found" )
-
+    
+    enddatetime = startdatetime + datetime.timedelta( minutes=duration )
+        # auto-compute endtime from starttime and duration
+    
     c = models.Crawl( name=name, description=description, startdatetime=startdatetime,
-            duration=duration, leader=leader )
-
-    for venue_id in venues_ids:
-        v = Venue.objects.get_or_create( foursq_id=venue_id )
+            duration=duration, leader=leader, enddatetime=enddatetime )
+    c.save()
+    for index, venue_id in enumerate( venues_ids ):
+        v, was_created = models.Venue.objects.get_or_create( foursq_id=venue_id )
         v.save( )
-        c.venues.append( v )
+        voc, created = models.VenueOnCrawl.objects.get_or_create( venue=v, crawl=c, index=index )
+        voc.save( )
+        v.save( )
+        c.save()
     
     c.save( )
 

@@ -25,10 +25,11 @@ class Venue( models.Model ):
         return { 'venue' : { 'id' : self.id, 'foursq_id' : self.foursq_id } }
 
 class Crawl( models.Model ):
-    duration = models.IntegerField()
+    duration = models.IntegerField()  # minutes
     name = models.CharField( max_length=100 )
     description = models.CharField( max_length=1000 )
     startdatetime = models.DateTimeField( 'start datetime' )
+    enddatetime = models.DateTimeField( 'end datetime' )   # will be computed automatcally on insertion
     
     leader = models.ForeignKey( User, verbose_name="The leader of this crawl.",
                 related_name="led_by" )

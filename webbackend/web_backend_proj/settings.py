@@ -1,6 +1,54 @@
+# Deployment plan:
+#     Find '#~' in this file and update lines as appropriate.
+#     Run python2.7 manage.py syncdb
+#     Check the pythonpath in .wsgi file. Should include django root and django apps.
+
+
 # Django settings for web_backend_proj project.
 
-DEBUG = False
+DEBUG = True  #~
+__DJANGO_PATH = "/Users/matthew/Code/Projects/4sqCrawl/4sqCrawl/webbackend/web_backend_proj/"
+
+#DEBUG = True  #~
+#__DJANGO_PATH = "/home/voxyn/webapps/fourcrawl/web_backend_proj/"
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': __DJANGO_PATH+'backend_db',                      # Or path to database file if using sqlite3.   #~
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    __DJANGO_PATH+"frontendapp/templates/",
+)
+
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    __DJANGO_PATH+"frontendapp/static/",
+)
+
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS.
+# Example: "/home/media/media.lawrence.com/static/"
+STATIC_ROOT = __DJANGO_PATH+"static/"
+
+
+
+
+# DEBUG
+# Moved to deploy-specific.
+
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -9,16 +57,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'backend_db',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
+# DATABASES
+# Moved to deploy-specific.
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -52,11 +92,8 @@ MEDIA_ROOT = ''
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
 
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+#STATIC_ROOT = ''
+#    Moved to deploy-specific.
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -68,11 +105,8 @@ STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+# STATICFILES_DIRS
+# Moved to desploy-specific
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -102,16 +136,13 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'web_backend_proj.urls'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+#TEMPLATE_DIRS =
+# Moved to deploy-specific.
 
 INSTALLED_APPS = (
 #    'django.contrib.auth',
 #    'django.contrib.contenttypes',
-#    'django.contrib.sessions',
+    'django.contrib.sessions',
 #    'django.contrib.sites',
 #    'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -119,7 +150,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'backendapp'
+    'backendapp',
+    'push_receiver',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -145,4 +177,14 @@ LOGGING = {
     }
 }
 
-import credentials #CLIENT_ID,CLIENT_SECRET
+import credentials #CLIENT_ID,CLIENT_SECRET,CALLBACK_URL
+
+# EXTRA - mjw
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
+)

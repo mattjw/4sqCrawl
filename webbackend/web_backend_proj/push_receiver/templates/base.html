@@ -1,0 +1,14 @@
+<!-- base.html is extended by all other web pages in the application. It contains all code that 
+     should be on every page, such as the html header section -->
+
+<html> 
+    <head>
+        <title>{% block title %}Foursquare OAuth Example{% endblock %}</title>
+</head>
+</head>
+    <body>
+    <!-- any pages that extend base.html will have their content inserted in this block -->
+    {% block content %}
+    {% endblock %}
+    </body>
+</html>
