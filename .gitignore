@@ -4,3 +4,7 @@
 ./webbackend/web_backend_proj/backend_db
 ./webbackend/web_backend_proj/credentials.py
 
+
+.DS_Store
+
+.DS_Store
