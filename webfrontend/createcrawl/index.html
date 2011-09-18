@@ -236,7 +236,7 @@
           tellDistances();
         }
         else {
-          alert('' + status + ' ' + waypoints.length);
+            alert('' + status + ' ' + waypoints.length);
         }
       });      
     }
@@ -259,7 +259,7 @@
 
     function tellDistances() {
       infoHtml = '<ol><li></li>';
-      alert(routes.length);
+      //alert(routes.length);
       for(i in routes) {
         distance = 0;
         duration = 0;
@@ -273,20 +273,15 @@
   });
   
   
-  function submitCrawl() {
-    
-    selectedVenueIDs = [];
-    var foursq_id;
-    for (i in selectedvenues) {
-      selectedVenueIDs.push(selectedvenues[i]['id']);
-    }
-    
-    $.getJSON('https://api.foursquare.com/v2/users/self?oauth_token=' + token, {}, function(data) {
-      foursq_id = data['response']['user']['id'];  
-    });
-    
-
-  } 
+        $('a.submitcrawl[href^=#]').click(function() {
+           location.reload(true);
+        });
+        
+        
+  
+  
+        
+        
 </script>
 
 
@@ -295,6 +290,29 @@
     $(document).ready(function() {
 
         //When you click on a link with class of poplight and the href starts with a # 
+        
+        $('a.submitcrawl').click(function() {
+           
+            if( selectedvenues.length == 0 ){
+                alert("Pro-tip: select some venues first, before submitting them ;-)")
+            }
+            else {
+            selectedVenueIDs = [];
+            
+            var foursq_id;
+            
+            for (i in selectedvenues) {
+              selectedVenueIDs.push(selectedvenues[i]['id']);
+            }
+
+            $.getJSON('https://api.foursquare.com/v2/users/self?oauth_token=' + token, {}, function(data) {
+              foursq_id = data['response']['user']['id'];  
+            });
+
+
+        }});
+        
+        
         
         $('a.logout[href^=#]').click(function() {
            token="";
@@ -358,7 +376,7 @@
     <div class="topbar">
       <div class="fill">
         <div class="container">
-          <a class="brand" href="#" style="color:#008dcb">four<span  style="color:#f89406" class="italics">crawl</span></a>
+          <span class="brand" style="color:#008dcb">four<span  style="color:#f89406" class="italics">crawl</span></span>
           <ul class="nav">
             <li><a href="#?w=500" rel="about" class="poplight">About</a></li>
             <li><a href="#" class="logout">Logout</a></li>
@@ -371,30 +389,51 @@
 
     <div id="map_canvas" style="width: 100%; height: 400px;"></div>
 
-    <div id="container">
-
-        <div class="row">
-            
-          <div class="span6 offset2">
-            <p> Venues so far: </p>
-            <div class="container" id="selectedVenuesList">
-            </div> <!-- /selectedVenuesList -->
-          </div>
-
-          <div class="span6 offset2">
-          <p> Information: </p>
-            <div class="container" id="informationPanel">
-            </div> <!-- /informationPanel -->
-          </div>
-        </div>
-            
-
-            <div class="row">
-            <input type="submit" value="Submit Crawl" class="button" onclick="submitCrawl();" />
+  
+    
+    
+    
+    <div class="container">
+        
+        
+        
+         <div class="span12">
+        
+          <div class="row">
+              
+            <div class="span6">
+                <h3> Venues so far </h3>
+                <div class="container" id="selectedVenuesList">
+                    
+                </div> <!-- /selectedVenuesList -->
             </div>
-            
+              
+            <div class="span3" style="padding-top:10px;">
+                <p> Information </p>
+                <div class="container" id="informationPanel">
+                    
+                </div> <!-- /informationPanel -->
+            </div>
+              
+            <div class="span3"  style="padding-top:40px;">
+                
+                    <a href="#" class="submitcrawl btn success">Submit your crawl</a>
 
-    </div>
+                    <!--
+                    <a href="createcrawl/" class="btn primary large">Sign in with foursquare</a>
+                    <input type="submit" value="Submit Crawl" class="button" onclick="submitCrawl();" /> 
+                    //-->
+            </div>                   
+              
+
+              
+          </div>
+        
+        </div>
+                   
+   </div>
+
+       
 
 	
 	    <!-- about popup -->
