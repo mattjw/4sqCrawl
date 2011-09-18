@@ -271,43 +271,7 @@
       $("#informationPanel").html(infoHtml);
     }       
   });
-   function submitCrawl() {
-    
-    selectedVenueIDs = [];
-    var user_foursq_id;
-    for (i in selectedvenues) {
-      selectedVenueIDs.push(selectedvenues[i]['id']);
-    }
-    
-    $.getJSON('https://api.foursquare.com/v2/users/self?oauth_token=' + token, {}, function(data) {
-      user_foursq_id = data['response']['user']['id'];  
-    });
-    
-    create_user_url='https://fourcrawl.nomovingparts.net/api/user/create/';
-    params={ 'foursq_id' : user_foursq_id };
-    $.post(create_user_url, params, function(data){
-      alert(data);
-    }, 'json');
 
-    list_url='https://fourcrawl.nomovingparts.net/api/user/list/';
-    $.getJSON(list_url, {}, function(data) {
-      alert(data);  
-    }, 'json');
-
-    create_crawl_url = 'https://fourcrawl.nomovingparts.net/api/crawl/create';
-    params={
-      'name' : 'some_name',
-      'description' : 'some_description',
-      'startdatetime' : '1316362510',
-      'duration' : 'some_duration',
-      'leader' : user_foursq_id,
-      'venues[]' : selectedVenueIDs
-    }
-
-    $.post(create_crawl_url, params, function(data){
-      alert(data);
-    });
- 
   
         $('a.submitcrawl[href^=#]').click(function() {
            location.reload(true);
