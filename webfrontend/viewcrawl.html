@@ -28,7 +28,7 @@
   $(document).ready(function(){
       
     var client_id  = 'VFS1NOYWSKC3THKFSP5VNFE1CLLED5CU0LMFUYWKCTB3IZBO';
-    var callback_url    = 'http://localhost/~martin/mobile.html';
+    var callback_url    = 'http://localhost/~martin/viewcrawl.html';
 
     var initialLocation;
     var cardiff = new google.maps.LatLng(51.481307,-3.18049860);
@@ -46,7 +46,8 @@
         navigator.geolocation.getCurrentPosition(function(position) {
           initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
          
-          
+           getCrawlsNearYou(initialLocation);
+           
         }, function() {
                 handleNoGeolocation(browserSupportFlag);
           });
@@ -58,6 +59,7 @@
         var geo = google.gears.factory.create('beta.geolocation');
         geo.getCurrentPosition(function(position) {
           initialLocation = new google.maps.LatLng(position.latitude,position.longitude);
+          getCrawlsNearYou(initialLocation);
           
         }, function() {
             handleNoGeoLocation(browserSupportFlag);
@@ -82,13 +84,25 @@
           alert("Your browser doesn't support geolocation. We've placed you in Cardiff.");
           initialLocation = cardiff;
         }
-      }      
+        
+        getCrawlsNearYou(initialLocation);
+      }
+      
+      function getCrawlsNearYou(location){
+          // Dummy function, not yet implemented
+          return true;
+      }
+      
     }
+    
+    
     
     else if ($.bbq.getState('error')) 
     {
       alert('some sort of error');
     } 
+    
+    
     else 
     {
         /* Redirect for foursquare authentication. */
@@ -105,54 +119,130 @@
         
 <script type="text/javascript">
     
-  $(document).ready(function() {
+    var categoryData = {
+        example: {
+                name: "example",
+                description: "All your favorites from aardvarks to zebras.",
+                items: [
+                        {
+                                name: "Pets",
+                        },
+                        {
+                                name: "Farm Animals",
+                        },
+                        {
+                                name: "Wild Animals",
+                        }
+                ]
+        }
+    };
+    
+    function showVenue( urlObj, options )
+    {
+            var categoryName = urlObj.hash.replace( /.*venue=/, "" ),
 
-    function listCrawls() {
-        var list_url='https://fourcrawl.nomovingparts.net/api/crawl/list/';
-        listHtml = '<ul>';
-        $.getJSON(list_url, {}, function(data) {
-            for(i in data) {
+            // Get the object that represents the category we
+            // are interested in. Note, that at this point we could
+            // instead fire off an ajax request to fetch the data, but
+            // for the purposes of this sample, it's already in memory.
+            venue = categoryData[ categoryName ],
+
+
+            // The pages we use to display our content are already in
+            // the DOM. The id of the page we are going to write our
+            // content into is specified in the hash before the '?'.
+            pageSelector = urlObj.hash.replace( /\?.*$/, "" );
+            
+            
+
+            if ( venue ) 
+            {
                 
-                listhtml += '<a id=' + i + ' href="index.html" data-role="button" data-theme="e" data-icon="arrow-r" data-inline="true" \
-                       class="ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-e"> \
-                        <span class="ui-btn-inner ui-btn-corner-all">\
-                        <span class="ui-btn-text">' + data[i]['name'] + '</span>\
-                        <span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></span></a>';
-            }  
-        }, 'json');
-        listHtml += '</ul>';
-        $("#crawlcontent_").html(listHtml);
+                    // Get the page we are going to dump our content into.
+                    var $page = $( pageSelector ),
+
+
+                    // Get the content area element for the page.
+                    $content = $page.find( ":jqmData(role=content)" )
+                    
+                    alert(venue.name);
+                    
+                    // Find the h1 element in our header and inject the name of
+                    // the category into it.
+                    $content.find( "h1" ).html( venue.name );
+                    
+                    
+
+
+                    $mainbody = $content.find(":jqmData(id=crawlinfo")
+                    
+                    // The markup we are going to inject into the content
+                    // area of the page.
+                    markup = "<p>" + venue.description + "</p><ul data-role='listview' data-inset='true'>",
+
+                    // The array of items for this category.
+                    cItems = venue.items,
+
+                    // The number of items in the category.
+                    numItems = cItems.length;
+
+                    markup += "</ul>";
+
+                    // Inject the category items markup into the content element.
+                    $mainbody.html( markup );
+                    
+                    
+
+                    // Pages are lazily enhanced. We call page() on the page
+                    // element to make sure it is always enhanced before we
+                    // attempt to enhance the listview markup we just injected.
+                    // Subsequent calls to page() are ignored since a page/widget
+                    // can only be enhanced once.
+                    $page.page();
+                    
+
+                    // Enhance the listview we just injected.
+                    //$content.find( ":jqmData(role=listview)" ).listview();
+
+                    // We don't want the data-url of the page we just modified
+                    // to be the url that shows up in the browser's location field,
+                    // so set the dataUrl option to the URL for the category
+                    // we just loaded.
+                    options.dataUrl = urlObj.href;
+
+                    // Now call changePage() and tell it to switch to
+                    // the page we just modified.
+                    $.mobile.changePage( $page, options );
+            }
     }
+    
+    
+    
+    // Listen for any attempts to call changepage.
+    $(document).bind( "pagebeforechange", function( e, data ) {
+            // We only want to handle changepage calls where the caller is
+            // asking us to load a page by URL.
+            if ( typeof data.toPage === "string" ) {
+                    // We are being asked to load a page by URL, but we only
+                    // want to handle URLs that request the data for a specific
+                    // category.
+                    var u = $.mobile.path.parseUrl( data.toPage ),
+                            re = /^#showcrawl/;
+                    if ( u.hash.search(re) !== -1 ) {
+                            // We're being asked to display the items for a specific category.
+                            // Call our internal method that builds the content for the category
+                            // on the fly based on our in-memory category data structure.
+                            
+                            showVenue( u, data.options );
 
-
-    $(".crawlslist").click(function(){
-        showCrawl($(this).attr('id'));
+                            // Make sure to tell changepage we've handled this call so it doesn't
+                            // have to do anything.
+                            e.preventDefault();
+                    }
+            }
     });
     
     
-    function showCrawl(crawl_id) {
-        var list_url='https://fourcrawl.nomovingparts.net/api/crawl/' + crawl_id + '/list/';
-        crawlHtml = '';
-        
-        $.getJSON(list_url, {}, function(data) {
-            crawlHtml += '<div id=\"crawldata\">\
-                          (<p class=\"name\">' + data['name'] + '</p>\
-                          <p class=\"description\">' + data['description'] + '</p>\
-                          <p class=\"start date & time\">' + data['startdatetime'] + '</p>\
-                          <p class=\"duration\">' + data['duration'] + '</p>\
-                          <p class=\"venues\">' + data['venues'] + '</p>\
-                          </div>';
-        
-        
-        
-        $("#crawlinfo").html(crawlHtml);
-    })}
-
-
-    listCrawls();
-
-
-  });
 </script>
 
   </head>
@@ -167,13 +257,14 @@
             </div><!-- /header -->
 
             
-            <div data-role="content" id="home"">	
+            <div data-role="content" id="home">	
+                
                     <h2>All <span style="color:#008dcb">four<span  style="color:#f89406" class="italics">crawl</span></span> crawls</h2>
 
-                    <div id="crawlcontent">
+                    <div id="crawllist">
 
-                        <a href="#example" data-role="button" data-theme="e" data-icon="arrow-r" data-inline="true" 
-                           class="ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-e">
+                        <a href="#showcrawl?venue=example" data-role="button" data-theme="e" data-icon="arrow-r" data-inline="true" 
+                           class="crawllistutem ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-e">
                             <span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">(example) The Swan and Hen</span>
                                 <span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></span></a>
 
@@ -183,11 +274,8 @@
             </div><!-- /content -->
 
             
-            
-            
-            
             <div data-role="footer" data-theme="d">
-                    <h4><span style="color:#008dcb">four<span  style="color:#f89406" class="italics">crawl</span></span> - mmmm pubs...</h4>
+                    <h4><span style="color:#008dcb">four<span style="color:#f89406" class="italics">crawl</span></span> - mmmm pubs...</h4>
             </div><!-- /footer -->
             
     </div><!-- /page one -->
@@ -195,17 +283,20 @@
       
       
 
-<!-- Start of second page: #two (attrib: data-theme="a") -->
-<div data-role="page" id="example" >
+    <div data-role="page" id="showcrawl" >
 	<div data-role="header">
 		<h1>fourcrawl</h1>
 	</div><!-- /header -->
 
-	<div data-role="content">	
-		<h1>The Swan and Hen</h1>
+	<div data-role="content">
+            
+		<h1 id="crawlname">The Swan and Hen</h1>
                 	
-		<p>Notice that the theme is different for this page because we've added a few <code>data-theme</code> swatch 
-                    here to show off how flexible it is. You can add any content or widget to these pages, but we're keeping these simple.</p>	
+                <div id="crawlinfo" style="padding-left: 40px; background-image: url(images/bar_on.png); background-repeat: no-repeat;">
+
+                    <p>description, start date, duration, venues</p>
+                 
+                </div>
 		
                 <p><a href="#one" data-direction="reverse" data-icon="home" data-role="button" data-theme="b">Back to all crawls</a></p>	
 		
